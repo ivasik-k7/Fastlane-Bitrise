@@ -1,0 +1,26 @@
+name: Convert README to PDF
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install -g markdown-pdf
+
+      - name: Convert README to PDF
+        run: markdown-pdf readme.md -o readme.pdf
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: readme-pdf
+          path: readme.pdf
